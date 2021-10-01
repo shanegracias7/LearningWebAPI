@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var ulStudents = $('#ulStudents');
+            
+
+            $('#GETbtn').click(function () {
+
+                var username = $('#txtUsername').val();
+                var password = $('#txtPassword').val();
+                $.ajax({
+                    type: 'GET',
+                    url: "http://localhost:58033/api/Student",
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa(username + ':' + password)
+                    },
+                    success: function (data) {
+                        ulStudents.empty();
+                        $.each(data, function (index, val) {
+                            ulStudents.append('<li>' + val.Name + '</li>');
+                        });
+                    }
+                });
+            });
+
+            $('#POSTbtn').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "http://localhost:58033/api/Student",
+                    dataType: 'json',
+                    data: { Name: $('#name').val(), City: $('#city').val(), Gender: $('#gender').val() },
+                    success: function (data) {
+                        ulStudents.empty();
+                        
+                    }
+                });
+            });
+            
+            
+            
+ 
+        });
+    </script>
+</head>
+<body>
+    <div>
+        Username : <input type="text" id="txtUsername" />
+        Password : <input type="password" id="txtPassword" />
+        <input id="GETbtn" type="button" value="Show Student" />
+        <br><br>
+
+        <input id="name" type="text" placeholder="name" />
+        <input id="city" type="text" placeholder="city" />
+        <input id="gender" type="text" placeholder="gender" />
+
+        <input id="POSTbtn" type="button" value="post name" />
+        <br>
+        
+        
+        <ul id="ulStudents" />
+    </div>
+</body>
+</html>
