@@ -15,6 +15,11 @@
 
             var ulStudents = $('#ulStudents');
 
+            $('#LogoutBtn').click(function () {
+                sessionStorage.removeItem('accessToken');
+                window.location.href = "login.html"
+            });
+
 
             $('#GETbtn').click(function () {
 
@@ -48,7 +53,7 @@
         
         <input id="GETbtn" type="button" value="Show Student" />
         <br><br>
-
+        <input id="LogoutBtn" type="button" value="logout" />
         <br>
 
 
