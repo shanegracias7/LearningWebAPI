@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            if (sessionStorage.getItem('accessToken') == null) {
+                window.location.href = "login.html";
+            }
+
+
+            var ulStudents = $('#ulStudents');
+
+
+            $('#GETbtn').click(function () {
+
+                
+                $.ajax({
+                    type: 'GET',
+                    url: "http://localhost:58033/api/Student",
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer '+ sessionStorage.getItem("accessToken")
+                    },
+                    success: function (data) {
+                        ulStudents.empty();
+                        $.each(data, function (index, val) {
+                            ulStudents.append('<li>' + val.Name + '</li>');
+                        });
+                    }
+                });
+            });
+
+          
+
+
+
+
+        });
+    </script>
+</head>
+<body>
+    <div>
+        
+        <input id="GETbtn" type="button" value="Show Student" />
+        <br><br>
+
+        <br>
+
+
+        <ul id="ulStudents" />
+    </div>
+</body>
+</html>

@@ -10,10 +10,11 @@ using System.Web.Http.Cors;
 namespace LearningWebAPI.Controllers
 {
     [EnableCorsAttribute("*", "*", "*")]
+    [Authorize]
     public class StudentController : ApiController
     {
 
-        [BasicAuthentication]
+        //[BasicAuthentication]
         public HttpResponseMessage Get(int id)
         {
             using (DemoEntities entities = new DemoEntities())
@@ -26,7 +27,7 @@ namespace LearningWebAPI.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound,"Student with id="+id.ToString()+"not found");
             }
         }
-        [BasicAuthentication]
+        //[BasicAuthentication]
         public HttpResponseMessage Get(string gender ="all")
         {
             using (DemoEntities entities = new DemoEntities())
@@ -53,7 +54,7 @@ namespace LearningWebAPI.Controllers
 
 
 
-        [BasicAuthentication]
+        //[BasicAuthentication]
         public HttpResponseMessage Put(int id, [FromBody]Student student)
         {
             try
